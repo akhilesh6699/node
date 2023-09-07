@@ -1,92 +1,88 @@
-const { response } = require('express')
-const Employee = require('../models/Employee')
-
-const index = (req,res,next) =>{
-    Employee.find()
-    .then(response =>{
-        res.json({
-            response
-        })
+const { response } = require("express");
+const Employee = require("../models/Employee");
+const index = (req, res, next) => {
+  Employee.find()
+    .then((response) => {
+      res.json({
+        response,
+      });
     })
-    .catch(error => {
-        res.json({
-            message: 'An error occured!'
-        })
+    .catch((error) => {
+      res.json({
+        message: "An error occured!",
+      });
+    });
+};
+const show = (req, res, next) => {
+  let employeeID = req.body.employeeID;
+  Employee.findById(employeeID)
+    .then((response) => {
+      res.json({
+        response,
+      });
     })
-}
-
-
-const show = (req,res,next) =>{
-    let employeeID = req.body.employeeID
-    Employee.findById(employeeID)
-    .then(response =>{
-        res.json({
-            response
-        })
+    .catch((error) => {
+      res.json({
+        message: "An error occured!",
+      });
+    });
+};
+const store = (req, res, next) => {
+  let employee = new Employee({
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+  });
+  employee
+    .save()
+    .then((response) => {
+      res.json({
+        message: "Employee added successfully!",
+      });
     })
-    .catch(error =>{
-        res.json({
-          message: "An error occured!"
-        })
+    .catch((error) => {
+      res.json({
+        message: "An error occured!",
+      });
+    });
+};
+const update = (req, res, next) => {
+  let employeeID = req.body.employeeID;
+  let updatedData = {
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+  };
+  Employee.findByIdAndUpdate(employeeID, { $set: updatedData })
+    .then(() => {
+      res.json({
+        message: "Employee updated successfully!",
+      });
     })
-}
-
-
-const store = (req,res,next) =>{
-    let employee = new Employee({
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone
+    .catch((error) => {
+      res.json({
+        message: "An error occured!",
+      });
+    });
+};
+const destroy = (req, res, next) => {
+  let employeeID = req.body.employeeID;
+  Employee.findByIdAndRemove(employeeID)
+    .then(() => {
+      res.json({
+        message: "Employee deleted successfully!",
+      });
     })
-    employee.save()
-    .then(response =>{
-        res.json({
-            message: 'Employee added successfully!'
-        })
-    })
-    .catch(error =>{
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
-
-const update = (req,res,next) =>{
-    let employeeID = req.body.employeeID
-    let updatedData = {
-        name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone
-    }
-    Employee.findByIdAndUpdate(employeeID, {$set: updatedData})
-    .then(() =>{
-        res.json({
-            message: 'Employee updated successfully!'
-        })
-    })
-    .catch(error =>{
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
-
-
-const destroy = (req,res,next) =>{
-    let employeeID = req.body.employeeID
-    Employee.findByIdAndRemove(employeeID)
-    .then(() =>{
-        res.json({
-            message: 'Employee deleted successfully!'
-        })
-    })
-    .catch(error =>{
-        res.json({
-            message: 'An error occured!'
-        })
-    })
-}
-
+    .catch((error) => {
+      res.json({
+        message: "An error occured!",
+      });
+    });
+};
 module.exports = {
-    index,show,store,update,destroy
-}
+  index,
+  show,
+  store,
+  update,
+  destroy,
+};
