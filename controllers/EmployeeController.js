@@ -1,5 +1,6 @@
 const { response } = require("express");
 const Employee = require("../models/Employee");
+//to show the total number of employees
 const index = (req, res, next) => {
   Employee.find()
     .then((response) => {
@@ -13,6 +14,7 @@ const index = (req, res, next) => {
       });
     });
 };
+//to show the details on a particular Employee
 const show = (req, res, next) => {
   let employeeID = req.body.employeeID;
   Employee.findById(employeeID)
@@ -27,6 +29,7 @@ const show = (req, res, next) => {
       });
     });
 };
+//to add new employee to the Data base
 const store = (req, res, next) => {
   let employee = new Employee({
     name: req.body.name,
@@ -46,6 +49,8 @@ const store = (req, res, next) => {
       });
     });
 };
+
+//to update any changes in the details of any employee
 const update = (req, res, next) => {
   let employeeID = req.body.employeeID;
   let updatedData = {
@@ -65,6 +70,7 @@ const update = (req, res, next) => {
       });
     });
 };
+// to delete the employee
 const destroy = (req, res, next) => {
   let employeeID = req.body.employeeID;
   Employee.findByIdAndRemove(employeeID)

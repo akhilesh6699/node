@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// to declare the type of input for the Employee details
+
 const employeeSchema = new Schema(
   {
     name: {
@@ -10,9 +12,10 @@ const employeeSchema = new Schema(
       type: String,
     },
     phone: {
-      type: String,
-    }
-  },{ timestamps: true }
+      type: Number,
+    },
+  },
+  { timestamps: true }
 );
 
 const Employee = mongoose.model("Employee", employeeSchema);

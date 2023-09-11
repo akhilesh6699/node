@@ -1,12 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const EmployeeController = require('../controllers/EmployeeController')
+const EmployeeController = require("../controllers/EmployeeController");
+//CRUD operation for the Employee details
 
-router.get('/', EmployeeController.index)
-router.post('/show', EmployeeController.show)
-router.post('/store', EmployeeController.store)
-router.post('/update', EmployeeController.update)
-router.post('/delete', EmployeeController.destroy)
+router.get("/", EmployeeController.index);
+router.post("/show", EmployeeController.show);
+router.post("/store", EmployeeController.store);
+router.post("/update", EmployeeController.update);
+router.post("/delete", EmployeeController.destroy);
 
-module.exports = router
+module.exports = router;
